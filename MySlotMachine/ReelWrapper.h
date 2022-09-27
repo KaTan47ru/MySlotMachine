@@ -10,6 +10,7 @@ public:
 	void dropTimer();
 	void spin();
 	void update();
+
 private:
 	std::vector<Reel> m_reels;
 	sf::Clock* m_clock;

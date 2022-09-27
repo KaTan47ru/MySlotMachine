@@ -19,16 +19,20 @@ std::pair<sf::Sprite,sf::Texture*> Reel::getNextSymbol(sf::Vector2f basePosition
     else
     {
         fileIdx = 0;
+
     }
+
     std::string fileName = "assets/" + pngs.at(fileIdx);
     sf::Texture* texture = new sf::Texture;
     texture->loadFromFile(fileName);
     sf::Sprite sprite;
-
+    
     auto size = texture->getSize();
+    
     sprite.setOrigin(size.x / 2, size.y / 2);
     sprite.setTexture(*texture);
     sprite.move(basePosition.x,basePosition.y+texture->getSize().y/2);
+    
     return {sprite,texture};
 }
 

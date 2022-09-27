@@ -14,6 +14,7 @@ private:
 public:
 
 	Reel(sf::Clock&, float, sf::Vector2f );
+	std::vector<int> getSymbols();
 	void update(float time);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 	void spin(float);

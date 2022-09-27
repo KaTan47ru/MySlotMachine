@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ReelWrapper.h"
+#include "Button.h"
 int main()
 {
     srand(time(NULL));
@@ -100,27 +101,9 @@ int main()
     }
 
     
-    sf::Sprite startButton;
-    sf::Texture *buttonTexture = new sf::Texture;
-    buttonTexture->loadFromFile("assets/button.png");
-    startButton.setTexture(*buttonTexture);
-    startButton.setOrigin(buttonTexture->getSize().x / 2, buttonTexture->getSize().y / 2);
-    startButton.setPosition(400, 700);
-    sf::Text startText;
-    titleFont.loadFromFile("assets/font.ttf");
-    startText.setString("start");
-    startText.setFillColor(sf::Color::Color(255, 0, 0));
-    startText.setFont(titleFont);
-    startText.setCharacterSize(35);
-    startText.setOrigin({ 87.5,17.5 });
-    startText.setPosition({ 400,700 });
-    auto transform = startButton.getTransform().getMatrix();
-    for (int i = 0; i < 16; i++)
-    {
-        std::cout << transform[i]<<" ";
-    }
-    sf::Sprite stopButton;
-
+    
+    Button startButton({ 400,700 }, "Start");
+    Button stopButton({600,700},"Stop");
     while (window.isOpen())
     {
         
@@ -128,6 +111,14 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            if (event.type == sf::Event::MouseMoved)
+            {
+                auto cursorPos = sf::Mouse::getPosition(window);
+                //std::cout << cursorPos.x<<" " << cursorPos.y << std::endl;
+                startButton.checkMouse(cursorPos);
+                stopButton.checkMouse(cursorPos);
+
+            }
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::MouseButtonPressed)
@@ -164,14 +155,15 @@ int main()
         {
             window.draw(i);
         }
-        for (auto& i : mesh)
-        {
-       //    window.draw(*i);
-        }
+        
 
         window.draw(textTitle);
         window.draw(startButton);
-        window.draw(startText);
+        window.draw(stopButton);
+        for (auto& i : mesh)
+        {
+           // window.draw(*i);
+        }
         window.display();
     }
 
