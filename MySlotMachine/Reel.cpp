@@ -1,18 +1,20 @@
 #include "Reel.h"
 
-std::pair<sf::Sprite,sf::Texture*> Reel::getNextSymbol(sf::Vector2f basePosition)
+
+
+Symbol* Reel::getNewSymbol(sf::Vector2f basePosition)
 {
-    std::vector<std::string > pngs = {"flag.png","insingnia.png","sla.png","imp.png"};
+    std::vector<std::string > pngs = { "flag.png","insingnia.png","sla.png","imp.png" };
     int fileIdx = rand() % 100;
     if (fileIdx > 90)
     {
         fileIdx = 3;
     }
-    else if(fileIdx<=90&&fileIdx>70)
+    else if (fileIdx <= 90 && fileIdx > 70)
     {
         fileIdx = 2;
     }
-    else if (fileIdx>40)
+    else if (fileIdx > 40)
     {
         fileIdx = 1;
     }
@@ -23,74 +25,137 @@ std::pair<sf::Sprite,sf::Texture*> Reel::getNextSymbol(sf::Vector2f basePosition
     }
 
     std::string fileName = "assets/" + pngs.at(fileIdx);
-    sf::Texture* texture = new sf::Texture;
-    texture->loadFromFile(fileName);
-    sf::Sprite sprite;
-    
-    auto size = texture->getSize();
-    
-    sprite.setOrigin(size.x / 2, size.y / 2);
-    sprite.setTexture(*texture);
-    sprite.move(basePosition.x,basePosition.y+texture->getSize().y/2);
-    
-    return {sprite,texture};
+    Symbol * result = new Symbol(fileName,basePosition,fileIdx);
+
+    return result;
 }
 
 
 
-Reel::Reel(sf::Clock& clock, float speed, sf::Vector2f basePosition = { 0.0,0.0 })
+int Reel::getStatus()
 {
-    this->timeToSpin = 0;
-    this->speed = speed;
+    if (this->isSpining == false)
+        return 1;
+    else
+        return -1;
+}
+
+Reel::Reel(sf::Clock& clock, float speed, sf::Vector2f basePosition = { 0.0,0.0 },bool standart =true)
+{
+    this->isSpining = false;
+    this->acceleration = 1;
+    this->timeToSpin.first = 0;
+    this->timeToSpin.second = 0;
+    this->speed = 0;
     this->basePosition = basePosition;
     for (int i = 0; i < 7; i++)
     {
-        sf::Texture* tmpTexture = new sf::Texture;
-        sf::Sprite tmpSprite;
-
-        if (tmpTexture->loadFromFile("assets/flag.png"))
-        {   
-            auto size = tmpTexture->getSize();
-            tmpSprite.setOrigin(size.x / 2, size.y / 2);
-            tmpSprite.setTexture(*tmpTexture);
-            tmpSprite.move(basePosition.x, 100*i+ size.y / 2);
-            this->reelObjects.push_back({ tmpSprite,tmpTexture });
-        }
-
+        float y = (50.0 + 100.0 * i);
+        Symbol* newSymb = Reel::getNewSymbol({ basePosition.x, y });
+        this->m_symbs.push_back(newSymb);
     }
+}
+
+void Reel::stop()
+{
+    this->timeToSpin.first = 0;
+
+}
+
+std::array<int, 5> Reel::getSymbolsNew() const
+{
+    std::array<int, 5> result;
+    auto it = this->m_symbs.begin();
+    it++;
+    for (size_t i = 0; i < 5; i++)
+    {
+        result.at(i) = (* it)->getIndex();
+        it++;
+    }
+    return result;
 }
 void Reel::spin(float timeToSpin)
 {
-    this->timeToSpin = timeToSpin;
+    this->isSpining = true;
+    this->timeToSpin.first = timeToSpin/2;
+    this->timeToSpin.second = timeToSpin/2;
+    this->speed = 100;
 }
-void Reel::update(float time)
+
+bool Reel::updateNew(float time)
 {
-    if(this->timeToSpin>0||this->anchor!=0)
-    for (int i = 0; i < this->reelObjects.size(); i++)
+    Symbol* newObject = nullptr;
+    if (this->timeToSpin.first > 0)
     {
-        this->anchor = (this->anchor + 1) % 100;
-        auto position = reelObjects.at(i).first.getPosition();
-
-        position.y += 0.01 * this->speed;
-       // std::cout << time <<std::endl;
-        timeToSpin -= time;
-        if (position.y > 700+ reelObjects.at(i).second->getSize().y/2)
+        
+        if (this->acceleration < 10)
+            this->acceleration += 0.01;
+        for (auto symbIter : this->m_symbs)
         {
-            auto newObject = Reel::getNextSymbol(basePosition);
-            delete this->reelObjects.at(i).second;
-            this->reelObjects.at(i) = newObject;
-        }
-        else
-        {
-            reelObjects.at(i).first.setPosition(position);
+            auto position = symbIter->getPosition();
+            position.y += 0.001 * this->acceleration * this->speed;
 
+            timeToSpin.first -= time;
+
+            if (position.y >= 700)
+            {
+                newObject = Reel::getNewSymbol(this->basePosition);
+            }
+            else
+            {
+                symbIter->setPosition(position);
+            }
         }
+        if (newObject != nullptr)
+        {
+            delete this->m_symbs.back();
+            this->m_symbs.pop_back();
+            this->m_symbs.push_front(newObject);
+        }
+        return false;
+        
     }
+    auto yPos = this->m_symbs.back()->getPosition().y + 50;
+    if (this->timeToSpin.second > 0 || (int)yPos != 700)
+    {
+        if (this->acceleration > 1)
+            this->acceleration -= 0.01;
+        for (auto symbIter : this->m_symbs)
+        {
+            auto position = symbIter->getPosition();
+            position.y += 0.001 * this->acceleration * this->speed;
+
+            timeToSpin.second -= time;
+
+            if (position.y >= 700)
+            {
+                newObject = Reel::getNewSymbol(this->basePosition);
+            }
+            else
+            {
+                symbIter->setPosition(position);
+            }
+        }
+        if (newObject != nullptr)
+        {
+            delete this->m_symbs.back();
+            this->m_symbs.pop_back();
+            this->m_symbs.push_front(newObject);
+        }
+        return false;
+    }
+    this->isSpining = false;
+    return true;
 }
+
+
 
 void Reel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
-    for(auto&i:reelObjects)
-	    target.draw(i.first, states);
+
+    for (auto& i : m_symbs)
+    {
+        target.draw(*i, states);
+    }
 }

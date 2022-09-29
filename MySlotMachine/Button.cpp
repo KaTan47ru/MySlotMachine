@@ -26,7 +26,7 @@ Button::Button(const sf::Vector2f position, const std::string buttonText)
 	this->m_text.setFillColor(sf::Color::Black);
 	this->m_text.setFont(*titleFont);
 	this->m_text.setCharacterSize(25);
-	std::cout << this->m_text.getLocalBounds().height << " " << this->m_text.getLocalBounds().width << std::endl;
+	
 
 	this->m_text.setOrigin(m_text.getLocalBounds().width/2, m_text.getGlobalBounds().height/2-size.y/2);
 	this->m_text.setPosition(position);
@@ -37,14 +37,18 @@ Button::Button(const sf::Vector2f position, const std::string buttonText)
 void Button::checkMouse(sf::Vector2i mousePosition)
 {
 	auto buttonPosition = this->m_sprite.getPosition();
-	auto width_2 = this->m_sprite.getGlobalBounds().width/2;
-	auto height_2 = this->m_sprite.getGlobalBounds().height/2;
+	auto l = this->m_sprite.getGlobalBounds().left;
+	auto t = this->m_sprite.getGlobalBounds().top;
+	
+	auto width = this->m_sprite.getGlobalBounds().width;
+	auto height = this->m_sprite.getGlobalBounds().height;
+
 	if (this->state == HoverState::unHovered)
 	{
-		if (   mousePosition.x >= buttonPosition.x - width_2 
-			&& mousePosition.x <= buttonPosition.x + width_2
-			&& mousePosition.y >= buttonPosition.y - height_2 
-			&& mousePosition.y <= buttonPosition.y + height_2)
+		if (   mousePosition.x >= l
+			&& mousePosition.x <= l + width
+			&& mousePosition.y >= t 
+			&& mousePosition.y <= t + height)
 		{
 			this->state = HoverState::hovered;
 			this->m_text.setFillColor(sf::Color::Red);
@@ -53,16 +57,34 @@ void Button::checkMouse(sf::Vector2i mousePosition)
 	}
 	else
 	{
-		if (   !(mousePosition.x >= buttonPosition.x - width_2)
-			|| !(mousePosition.x <= buttonPosition.x + width_2)
-			|| !(mousePosition.y >= buttonPosition.y - height_2)
-			|| !(mousePosition.y <= buttonPosition.y + height_2))
+		if (   !(mousePosition.x >= l)
+			|| !(mousePosition.x <= l + width)
+			|| !(mousePosition.y >= t)
+			|| !(mousePosition.y <= t + height))
 		{
 			this->state = HoverState::unHovered;
 			this->m_text.setFillColor(sf::Color::Black);
 			this->m_sprite.setTexture(this->unHoverTexture);
 		}
 	}
+}
+
+bool Button::checkMousePressed(sf::Vector2i mousePosition)
+{
+	auto buttonPosition = this->m_sprite.getPosition();
+	auto width_2 = this->m_sprite.getGlobalBounds().width / 2;
+	auto height_2 = this->m_sprite.getGlobalBounds().height / 2;
+	
+	if (mousePosition.x >= buttonPosition.x - width_2
+		&& mousePosition.x <= buttonPosition.x + width_2
+		&& mousePosition.y >= buttonPosition.y - height_2
+		&& mousePosition.y <= buttonPosition.y + height_2)
+	{
+		return true;
+	}
+	else
+		return false;
+	
 }
 
 void Button::hovered()

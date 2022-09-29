@@ -1,21 +1,26 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <array>
+#include "Symbol.h"
+#include <list>
 class Reel:public sf::Drawable
 {
 private:
-	std::vector<std::pair<sf::Sprite, sf::Texture*>> reelObjects;
+
 	float speed;
-	float timeToSpin;
-	int anchor = 0;
+	std::pair<float,float> timeToSpin;
 	sf::Vector2f basePosition;
-	static std::pair<sf::Sprite, sf::Texture*> getNextSymbol(sf::Vector2f basePosition);
-
+	static Symbol* getNewSymbol(sf::Vector2f);
+	std::list<Symbol *> m_symbs;
+	float acceleration;
+	bool isSpining;
 public:
-
-	Reel(sf::Clock&, float, sf::Vector2f );
-	std::vector<int> getSymbols();
-	void update(float time);
+	int getStatus();
+	Reel(sf::Clock&, float, sf::Vector2f, bool);
+	void stop();
+	std::array<int, 5> getSymbolsNew() const;
+	bool updateNew(float);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 	void spin(float);
 
