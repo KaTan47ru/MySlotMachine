@@ -1,10 +1,16 @@
-For linux:
-gcc 11.2.0 tested
-	Build:
-		cd Source/Linux
-		make # Bild application
-		make launch # For launching build
-		make clean # Clean build
-	Launch binary:
-		cd Binary/Linux
-		make launch
+# Инструкция по сборке и эксплуатации
+## Под Windows:
+### 1. Заупкстить .sln решение
+####	 1.1.1 В свойствах проекта выставить в ProjectProperties/General необходимый toolset. Протестированно на v143 и v142 тулсете
+####	 1.1.2 Запустить через Локальный отлабчик windows/Любоый другой отладчик (F5)
+#### 	 1.2.1 Замустить exe файл в Binary/Windows
+## Под линукс:
+## Проверялось под Ubuntu 22.0.1 и gcc 11.2.0 
+### Сборка:
+####	1.	cd Source/Linux
+####	2.	make # Собрать приложение
+####	3.	make launch # Запустить предварительно собранное приложение
+####	4.	make clean # Очистить сборку
+### Запуск бинарника:
+####	1.	cd Binary/Linux
+####	2.	make launch
