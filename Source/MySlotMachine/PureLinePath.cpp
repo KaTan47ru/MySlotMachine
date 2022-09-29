@@ -1,5 +1,7 @@
 #include "PureLinePath.h"
-
+// Проверка, есть ли на символах барабана прямые линии.
+// Если линия есть, то возвращается массив точек, по которому нвжно отрисовать выигрышную линию,
+// а также ценность линии
 std::vector<std::pair<sf::VertexArray, int>> PureLinePath::checkPath(std::array<std::array<int, 5>, 5> reelData)
 {
     std::vector<std::pair<sf::VertexArray, int>> result = {};

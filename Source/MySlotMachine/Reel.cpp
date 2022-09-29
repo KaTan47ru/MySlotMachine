@@ -1,7 +1,7 @@
 #include "Reel.h"
 
 
-
+// Статичный приватный метод, генерирует новый символ для стобца в соответсвии с некоторым рандомом.
 Symbol* Reel::getNewSymbol(sf::Vector2f basePosition)
 {
     std::vector<std::string > pngs = { "flag.png","insingnia.png","sla.png","imp.png" };
@@ -31,7 +31,7 @@ Symbol* Reel::getNewSymbol(sf::Vector2f basePosition)
 }
 
 
-
+// состояние столбца - вращается или нет
 int Reel::getStatus()
 {
     if (this->isSpining == false)
@@ -39,8 +39,8 @@ int Reel::getStatus()
     else
         return -1;
 }
-
-Reel::Reel(sf::Clock& clock, float speed, sf::Vector2f basePosition = { 0.0,0.0 },bool standart =true)
+// конструктор стоит столбец из 7 символов с шагом в 100 ед.
+Reel::Reel( float speed, sf::Vector2f basePosition = { 0.0,0.0 },bool standart =true)
 {
     this->isSpining = false;
     this->acceleration = 1;
@@ -55,7 +55,7 @@ Reel::Reel(sf::Clock& clock, float speed, sf::Vector2f basePosition = { 0.0,0.0 
         this->reelSymbols.push_back(newSymb);
     }
 }
-
+// конструктор копирования
 Reel::Reel(const Reel& other)
 {
     this->reelSymbols = std::list<Symbol*>(other.reelSymbols);
@@ -65,17 +65,18 @@ Reel::Reel(const Reel& other)
     this->speed = other.speed;
     this->isSpining = other.isSpining;
 }
-
+// Метод для кнопки stop. Зануляет время разгона, благодаря чему столбец начинает плавно останавливаться.
 void Reel::stop()
 {
     this->timeToSpin.first = 0;
 
 }
-
+// Возвращает матрицу с символами, которые установлены на линии
 std::array<int, 5> Reel::getSymbolsNew() const
 {
     std::array<int, 5> result;
     auto it = this->reelSymbols.begin();
+    // первый элемент не учитывается, потому что скрыт, поэтому сдвигаем иттератор
     it++;
     for (size_t i = 0; i < 5; i++)
     {
@@ -84,6 +85,7 @@ std::array<int, 5> Reel::getSymbolsNew() const
     }
     return result;
 }
+// Запуск столбца. Время вращения делится поплам - половига - ускорение, половина - замедление
 void Reel::spin(float timeToSpin)
 {
     this->isSpining = true;
@@ -91,7 +93,7 @@ void Reel::spin(float timeToSpin)
     this->timeToSpin.second = timeToSpin/2;
     this->speed = 100;
 }
-
+// Деструктор. Хранятся указатели вместо объектов, так как так меньше кодировать
 Reel::~Reel()
 {
     for (auto& symbol : this->reelSymbols)
@@ -99,10 +101,12 @@ Reel::~Reel()
         delete symbol;
     }
 }
-
+// Процедура обновления положения символов. Нельзя внести в draw потомучто он константный
+// Движение равнноускоренное S = v_0*t + a*t^2/2 - at*t -at^2/2
 bool Reel::updateNew(float time)
 {
     Symbol* newObject = nullptr;
+    // Часть для ускорения
     if (this->timeToSpin.first > 0)
     {
         
@@ -134,6 +138,7 @@ bool Reel::updateNew(float time)
         
     }
     auto yPos = this->reelSymbols.back()->getPosition().y + 50;
+    // Часть для замедления
     if (this->timeToSpin.second > 0 || (int)yPos != 700)
     {
         if (this->acceleration > 1)
@@ -167,7 +172,7 @@ bool Reel::updateNew(float time)
 }
 
 
-
+// отрисовка. Риуются все элементы, чьи указатели хранятся в экземпляре класса
 void Reel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 

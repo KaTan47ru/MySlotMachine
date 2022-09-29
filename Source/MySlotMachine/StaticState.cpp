@@ -1,13 +1,16 @@
 #include "StaticState.h"
 
+// Конструктор. Зануляем указатель на следующее состояние, инициализирует указатель на слот машину
 StaticState::StaticState(SlotMachine* pSlotMachine)
 {
 	this->slotMachineHandler = pSlotMachine;
     this->nextState = nullptr;
 }
 
+// Переопределенный метод интерфейса, который описывакет жизненный цикл состояния 
 void StaticState::runRoutine(sf::RenderWindow* window)
 {
+    // Метод приводящий слот машину в начальное(первое) состояние
     this->slotMachineHandler->dropMachine();
     while (window->isOpen())
     {
@@ -28,6 +31,7 @@ void StaticState::runRoutine(sf::RenderWindow* window)
             {
                 if (this->slotMachineHandler->trackStartClicks(sf::Mouse::getPosition(*window)) == true)
                 {
+                    // если пользователь нажал кнопку старт происходит переход к следующему состоянию.
                     this->nextState->runRoutine(window);
 
                 }

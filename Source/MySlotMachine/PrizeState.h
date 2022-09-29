@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include"SlotMachine.h"
+// Третье сосояние машины. Начинается когда заканчивается вращение, перекращается при нажатии кнопки start
 class PrizeState :
     public State
 {

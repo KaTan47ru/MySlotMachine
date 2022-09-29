@@ -1,5 +1,21 @@
 #include "ZigZagLinePath.h"
-
+// Проверка, есть ли на символах барабана зиг-заг  линии.
+// Если линия есть, то возвращается массив точек, по которому нвжно отрисовать выигрышную линию,
+// а также ценность линии
+// Отсматриваются только две простейшие комбинации:
+// Первая:
+//  - ф - k -
+// a b c d f
+// a d f g h
+// l s h l p
+// a - o - p
+// Вторая:
+// v - c - f
+// a b c d f
+// a d f g h
+// l s h l p
+// - m - l -
+//
 std::vector<std::pair<sf::VertexArray, int>> ZigZagLinePath::checkPath(std::array<std::array<int, 5>, 5> reelData)
 {
     std::vector<std::pair<sf::VertexArray, int>> result = {};

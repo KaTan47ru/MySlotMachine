@@ -1,12 +1,12 @@
 #include "Button.h"
-
+// Переопределение унаследованного метода для рисования
 void Button::draw(sf::RenderTarget& t, sf::RenderStates s) const
 {
 
 	t.draw(this->buttonSprite, s);
 	t.draw(this->textTitle, s);
 }
-
+// Конструктор, выставляются совйства кнопки: размер, позиция, якорь
 Button::Button(const sf::Vector2f position, const std::string buttonText)
 {
 	
@@ -33,7 +33,7 @@ Button::Button(const sf::Vector2f position, const std::string buttonText)
 	
 	
 }
-
+// Проверка для свойства :hovered. Если наведена мвшка, меняется текстурка
 void Button::checkMouse(sf::Vector2i mousePosition)
 {
 	auto buttonPosition = this->buttonSprite.getPosition();
@@ -68,7 +68,7 @@ void Button::checkMouse(sf::Vector2i mousePosition)
 		}
 	}
 }
-
+// Проверка на нажате tre - нажата, иначе false
 bool Button::checkMousePressed(sf::Vector2i mousePosition)
 {
 	auto buttonPosition = this->buttonSprite.getPosition();

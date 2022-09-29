@@ -14,7 +14,7 @@ ReelWrapper::ReelWrapper(int reelsCount, sf::Vector2i windowSize)
         float x = (i * reelWidth + reelWidth / 2);
         float y = 0.0;
         sf::Vector2f basePosition({ x,y });
-        this->drumbReels.push_back(new Reel(*this->pClock,100, basePosition,true));
+        this->drumbReels.push_back(new Reel(100, basePosition,true));
     }
 
 

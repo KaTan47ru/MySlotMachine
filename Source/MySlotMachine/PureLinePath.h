@@ -1,6 +1,13 @@
 #pragma once
 #include "Path.h"
 #include <iostream>
+// реализация интерфейса для "прямых" путей:
+// - - - - -
+// a b c d f
+// a d f g h
+// l s h l p
+// a p o k p
+//
 class PureLinePath :
     public Path
 {

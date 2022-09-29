@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include<iostream>
+// Класс для символа в столбце
 class Symbol : public sf::Drawable
 {
 public:
@@ -14,6 +15,7 @@ public:
 	int getIndex() const;
 	virtual ~Symbol();
 private:
+	// текстура символа, надо хранить указателем, так как иначе не отрисовывается
 	sf::Texture * symbolTexture;
 	sf::RectangleShape symbolShape;
 	int symbolIndex;

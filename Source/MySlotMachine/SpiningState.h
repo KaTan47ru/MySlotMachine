@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include"SlotMachine.h"
+// Реализация интерфейса дя состояния 2.
 class SpiningState :
     public State
 {

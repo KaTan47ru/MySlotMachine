@@ -2,6 +2,7 @@
 #include <array>
 #include <vector>
 #include <SFML/Graphics.hpp>
+// Интерфейс для путей разного вида. Планировал реализовать побольше путей, о в итоге взял две самые простые комбинации.
 class Path
 {
 public:
