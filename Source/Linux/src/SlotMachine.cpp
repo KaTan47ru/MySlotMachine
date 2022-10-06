@@ -178,7 +178,7 @@ void SlotMachine::stop()
 
 // ������������ ������� ������ �����.
 // ����������� 1 � 3 ����������.
-bool SlotMachine::trackStartClicks(sf::Vector2i mousePosition)
+bool SlotMachine::trackStartClicks(const sf::Vector2i & mousePosition)
 {
     return this->startButton->checkMousePressed(mousePosition);
 }
@@ -201,13 +201,13 @@ SlotMachine::~SlotMachine()
     delete this->textFont;
 }
 // ������� ������ ����. ������������ ������ ����������
-bool SlotMachine::trackStopClicks(sf::Vector2i mousePosition)
+bool SlotMachine::trackStopClicks(const sf::Vector2i & mousePosition)
 {
     return this->stopButton->checkMousePressed(mousePosition);
 
 }
 // ����������� �������� ����� ��� ������� �������� :hover � ������.
-void SlotMachine::trackMouse(sf::Vector2i mousePosition)
+void SlotMachine::trackMouse(const sf::Vector2i & mousePosition)
 {
     this->startButton->checkMouse(mousePosition);
     this->stopButton->checkMouse(mousePosition);

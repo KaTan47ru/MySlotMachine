@@ -1,38 +1,38 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include <iostream>
 #include <array>
 #include "Symbol.h"
 #include <list>
-// Класс сеализующий столбец барабана.
-// Каждый столбец содержит 7 символов. 
-// Первый и седьмой не видны игроку. Нужны для плавности движения.
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 7 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. 
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 class Reel:public sf::Drawable
 {
 private:
 
-	// Контейнер с символами
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	std::list<Symbol*> reelSymbols;
-	// Контейнер с временем вращения
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	std::pair<float,float> timeToSpin;
-	// Верхняя централь первого элемента барабана
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	sf::Vector2f basePosition;
-	// Ускорене
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	float acceleration;
-	// Скорость
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	float speed;
-	// Флаг вращения
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	bool isSpining;
 
-	static Symbol* getNewSymbol(sf::Vector2f);
+	static Symbol* getNewSymbol(const sf::Vector2f &);
 public:
-	Reel( float, sf::Vector2f, bool);
+	Reel(const  float &,const sf::Vector2f &, const bool &);
 	Reel(const Reel& other);
 	std::array<int, 5> getSymbolsNew() const;
 	void stop();
-	void spin(float);
+	void spin(const float&);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
-	bool updateNew(float);
+	bool updateNew(const float&);
 	int getStatus();
 	~Reel();
 

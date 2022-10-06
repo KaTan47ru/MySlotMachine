@@ -8,7 +8,7 @@ class ReelWrapper:public sf::Drawable
 public:
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
-	ReelWrapper(int reelsCount, sf::Vector2i windowSize);
+	ReelWrapper(const int & reelsCount,const sf::Vector2i & windowSize);
 	void restart();
 	void spin();
 	void processPrize();

@@ -1,6 +1,6 @@
 #include "Symbol.h"
-// Конструктор. Установка свойств сивола: его числового индекса, позиции на экране, текстуры.
-Symbol::Symbol(std::string texturePath, sf::Vector2f basePosition, int index)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+Symbol::Symbol( const std::string & texturePath,const  sf::Vector2f & basePosition,const int & index)
 {
 	this->symbolIndex = index;
 	this->symbolTexture = new sf::Texture;
@@ -13,7 +13,7 @@ Symbol::Symbol(std::string texturePath, sf::Vector2f basePosition, int index)
 		this->symbolShape.move(basePosition.x, basePosition.y);
 	}
 }
-// Конструктор копирования. Нужен для корректной работы Slt контейнеров.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Slt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 Symbol::Symbol(const Symbol& other)
 {
 	this->symbolShape = sf::RectangleShape(other.symbolShape);
@@ -21,18 +21,18 @@ Symbol::Symbol(const Symbol& other)
 	this->symbolIndex = other.symbolIndex;
 	
 }
-// Переоределения метода draw
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ draw
 void Symbol::draw(sf::RenderTarget& t, sf::RenderStates s) const
 {
 	t.draw(this->symbolShape, s);
 }
-// Метод получения позиции символа на эеране.
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 sf::Vector2f Symbol::getPosition()
 {
 	return this->symbolShape.getPosition();
 }
 
-void Symbol::setPosition(sf::Vector2f newPosition)
+void Symbol::setPosition(const sf::Vector2f & newPosition)
 {
 	this->symbolShape.setPosition(newPosition);
 }

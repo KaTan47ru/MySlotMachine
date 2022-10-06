@@ -1,9 +1,10 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include <iostream>
+#include<random>
 #include <array>
 #include "Symbol.h"
 #include <list>
+#include <iomanip>
 // ����� ����������� ������� ��������.
 // ������ ������� �������� 7 ��������. 
 // ������ � ������� �� ����� ������. ����� ��� ��������� ��������.
@@ -24,15 +25,15 @@ private:
 	// ���� ��������
 	bool isSpining;
 
-	static Symbol* getNewSymbol(sf::Vector2f);
+	static Symbol* getNewSymbol(const sf::Vector2f &);
 public:
-	Reel( float, sf::Vector2f, bool);
+	Reel(const  float &,const sf::Vector2f &, const bool &);
 	Reel(const Reel& other);
 	std::array<int, 5> getSymbolsNew() const;
 	void stop();
-	void spin(float);
+	void spin(const float&);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
-	bool updateNew(float);
+	bool updateNew(const float&);
 	int getStatus();
 	~Reel();
 

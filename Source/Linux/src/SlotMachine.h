@@ -30,9 +30,9 @@ public:
 	void processPrize();
 	void dropMachine();
 	bool render(sf::RenderWindow* window);
-	void trackMouse(sf::Vector2i mousePosition);
-	bool trackStartClicks(sf::Vector2i mousePosition);
-	bool trackStopClicks(sf::Vector2i mousePosition);
+	void trackMouse(const sf::Vector2i& mousePosition);
+	bool trackStartClicks(const sf::Vector2i& mousePosition);
+	bool trackStopClicks(const sf::Vector2i& mousePosition);
 	~SlotMachine();
 };
 

@@ -1,14 +1,12 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
-#include "ReelWrapper.h"
-#include "Button.h"
-#include "Symbol.h"
-#include "PureLinePath.h"
-#include "ZigZagLinePath.h"
 #include "SlotMachine.h"
 #include "StaticState.h"
 #include "SpiningState.h"
 #include "PrizeState.h"
+/*
+    NB Я знаю о существовании умных указателей. Код писался с идеей продемонстрировать умение ручной работы с памятью.
+*/
 int main()
 {
 

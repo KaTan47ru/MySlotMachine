@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include<iostream>
+
 // ����� ��� ������������� ��������� � ����� ������.
 // ��������� �� ������ - ���������� true/false ���� ������ ��� ���������� � �� ����������
 // ����� ���� ���������� �������� :hovered. ��� ������������ ������ ���������.
@@ -15,9 +15,9 @@ public:
 	};
 	
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
-	Button(const sf::Vector2f position,const std::string buttonText);
-	void checkMouse(sf::Vector2i);
-	bool checkMousePressed(sf::Vector2i);
+	Button(const sf::Vector2f & position,const std::string& buttonText);
+	void checkMouse(const sf::Vector2i&);
+	bool checkMousePressed(const sf::Vector2i&) const;
 	~Button();
 private:
 	

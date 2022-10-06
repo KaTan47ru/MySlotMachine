@@ -1,5 +1,5 @@
 #include "SlotMachine.h"
-// Контруктор. Собирвется статический интерфейс, инициализируются барабаны
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 SlotMachine::SlotMachine()
 {
 
@@ -85,7 +85,7 @@ SlotMachine::SlotMachine()
     
     sf::Text* prizeText = new sf::Text;
     prizeText->setString("Prize:");
-    prizeText->setFillColor(sf::Color::Color(0, 0, 0));
+    prizeText->setFillColor(sf::Color::Black);
     prizeText->setFont(*textFont);
     prizeText->setPosition({ 50,650 });
     prizeText->setCharacterSize(50);
@@ -93,7 +93,7 @@ SlotMachine::SlotMachine()
 
     this->helpText = new sf::Text;
     this->helpText->setString("Press 'Start' to Spin");
-    this->helpText->setFillColor(sf::Color::Color(0, 0, 0));
+    this->helpText->setFillColor(sf::Color::Black);
     this->helpText->setFont(*textFont);
     this->helpText->setCharacterSize(50);
     auto h =this->helpText->getLocalBounds().height;
@@ -103,7 +103,7 @@ SlotMachine::SlotMachine()
 
     this->prizeValue = new sf::Text;
     this->prizeValue->setString("0$");
-    this->prizeValue->setFillColor(sf::Color::Color(0, 0, 0));
+    this->prizeValue->setFillColor(sf::Color::Black);
     this->prizeValue->setFont(*textFont);
     this->prizeValue->setPosition({ 50,700 });
     this->prizeValue->setCharacterSize(50);
@@ -114,7 +114,7 @@ SlotMachine::SlotMachine()
     this->drumb = new ReelWrapper(5, { 1000,800 });
 
 }
-// Процдура для отображения состояния показа выигрыша. Рисуются выигравшие пути, пишется выигрыш
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void SlotMachine::processPrize()
 {
     this->helpText->setString("Press 'Start' to play again");
@@ -125,7 +125,7 @@ void SlotMachine::processPrize()
     auto prize = this->drumb->getPrizeValue();
     this->prizeValue->setString(std::to_string(prize)+"$");
 }
-// Процедура для сбора состояния машины для "первого" по ТЗ сотсояния
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void SlotMachine::dropMachine()
 {
     this->helpText->setString("Press 'Start' to Spin");
@@ -139,7 +139,7 @@ void SlotMachine::dropMachine()
 
 
 
-// Процедура для Вращения барабанов.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 void SlotMachine::spin()
 {
     this->helpText->setString("Wait for spining ...");
@@ -149,8 +149,8 @@ void SlotMachine::spin()
     this->helpText->setPosition({ 500,25 });
     this->drumb->spin();
 }
-// рендер всех объектов. Возвращает true если барабаны статичны.
-// Этим пользуются все состояния, анализ резульатат производит только второе состояние для перехода в третье
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 bool SlotMachine::render(sf::RenderWindow* window)
 {
     bool result = false;
@@ -170,15 +170,15 @@ bool SlotMachine::render(sf::RenderWindow* window)
     window->display();
     return result;
 }
-// Остановка слот машины. Вызывается вторым состояние в случае нажатия кнопки Стоп
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 void SlotMachine::stop()
 {
     this->drumb->stop();
 }
 
-// Отслеживение нажатие кнопки старт.
-// Истольуется 1 и 3 состоянием.
-bool SlotMachine::trackStartClicks(sf::Vector2i mousePosition)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅ 3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+bool SlotMachine::trackStartClicks(const sf::Vector2i & mousePosition)
 {
     return this->startButton->checkMousePressed(mousePosition);
 }
@@ -200,14 +200,14 @@ SlotMachine::~SlotMachine()
     delete this->helpText;
     delete this->textFont;
 }
-// Нажатие кнопки стоп. Используется вторым состоянием
-bool SlotMachine::trackStopClicks(sf::Vector2i mousePosition)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+bool SlotMachine::trackStopClicks(const sf::Vector2i & mousePosition)
 {
     return this->stopButton->checkMousePressed(mousePosition);
 
 }
-// Остеживание движение мышки для рендера свойства :hover у кнопок.
-void SlotMachine::trackMouse(sf::Vector2i mousePosition)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ :hover пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+void SlotMachine::trackMouse(const sf::Vector2i & mousePosition)
 {
     this->startButton->checkMouse(mousePosition);
     this->stopButton->checkMouse(mousePosition);

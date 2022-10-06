@@ -1,6 +1,6 @@
 #include "ReelWrapper.h"
 
-ReelWrapper::ReelWrapper(int reelsCount, sf::Vector2i windowSize)
+ReelWrapper::ReelWrapper(const int& reelsCount,const  sf::Vector2i & windowSize)
 {
 
     this->reelsStopedFlag = 0;

@@ -1,26 +1,26 @@
 #pragma once
 #include <vector>
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "Button.h"
 #include "ReelWrapper.h"
-// Класс для машины, которая будет управляться состояниями
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class SlotMachine
 {
 private:
-	// Контейнер с элементами статичного интерфейса
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	std::vector<sf::Drawable *> staticDrawables;
-	// Контейнер с текстурами
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	std::vector<sf::Texture*> textures;
-	// Конпка начать
+	// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	Button * startButton;
-	// Кнопка стоп
+	// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	Button * stopButton;
-	// Барабан
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	ReelWrapper * drumb;
-	// Поля с динамическимтекстом
+	// пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	sf::Text* helpText;
 	sf::Text* prizeValue;
-	// Шрифт Хранить надо, потому что в локальной переменной не работает
+	// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	sf::Font * textFont;
 
 public:
@@ -30,9 +30,9 @@ public:
 	void processPrize();
 	void dropMachine();
 	bool render(sf::RenderWindow* window);
-	void trackMouse(sf::Vector2i mousePosition);
-	bool trackStartClicks(sf::Vector2i mousePosition);
-	bool trackStopClicks(sf::Vector2i mousePosition);
+	void trackMouse(const sf::Vector2i& mousePosition);
+	bool trackStartClicks(const sf::Vector2i& mousePosition);
+	bool trackStopClicks(const sf::Vector2i& mousePosition);
 	~SlotMachine();
 };
 

@@ -7,6 +7,6 @@ class Path
 {
 public:
 
-	virtual std::vector<std::pair<sf::VertexArray,int>> checkPath(std::array<std::array<int, 5>, 5>) = 0;
+	virtual std::vector<std::pair<sf::VertexArray,int>> checkPath(const std::array<std::array<int, 5>, 5> & ) const = 0;
 };
 

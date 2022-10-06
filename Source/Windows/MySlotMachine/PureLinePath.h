@@ -1,7 +1,7 @@
 #pragma once
 #include "Path.h"
 #include <iostream>
-// реализация интерфейса для "прямых" путей:
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅ:
 // - - - - -
 // a b c d f
 // a d f g h
@@ -13,6 +13,6 @@ class PureLinePath :
 {
 
 public:
-    virtual std::vector<std::pair<sf::VertexArray, int>> checkPath(std::array<std::array<int, 5>, 5>) ;
+    virtual std::vector<std::pair<sf::VertexArray, int>> checkPath(const std::array<std::array<int, 5>, 5 > &) const;
 };
 

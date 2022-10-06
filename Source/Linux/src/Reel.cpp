@@ -1,37 +1,32 @@
 #include "Reel.h"
 
-
-// Статичный приватный метод, генерирует новый символ для стобца в соответсвии с некоторым рандомом.
-Symbol* Reel::getNewSymbol(sf::Vector2f basePosition)
+auto getRandomGenerator() -> std::mt19937&
 {
-    std::vector<std::string > pngs = { "flag.png","insingnia.png","sla.png","imp.png" };
-    int fileIdx = rand() % 100;
-    if (fileIdx > 90)
-    {
-        fileIdx = 3;
-    }
-    else if (fileIdx <= 90 && fileIdx > 70)
-    {
-        fileIdx = 2;
-    }
-    else if (fileIdx > 40)
-    {
-        fileIdx = 1;
-    }
-    else
-    {
-        fileIdx = 0;
-
-    }
-
-    std::string fileName = "assets/" + pngs.at(fileIdx);
-    Symbol * result = new Symbol(fileName,basePosition,fileIdx);
-
+    static auto generator = std::mt19937{ std::random_device{}() };
+    return generator;
+}
+ 
+Symbol*  Reel::getNewSymbol(const  sf::Vector2f& basePosition)
+{
+    static constexpr auto pngs = std::array{
+        std::string_view{ "flag.png" },
+        std::string_view{ "insingnia.png" },
+        std::string_view{ "sla.png" },
+        std::string_view{ "imp.png" }
+    };
+    static auto distribution = std::discrete_distribution<>({40, 30, 20, 10}); // РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РјРѕРіСѓС‚ Р±С‹С‚СЊ РЅРµ С‚Рµ
+ 
+    const auto fileIndex = distribution(getRandomGenerator());
+    const auto fileName = "assets/" + std::string(pngs.at(fileIndex));
+    Symbol * result = new Symbol(fileName,basePosition,fileIndex);
     return result;
 }
+ 
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 
 
-// состояние столбца - вращается или нет
+
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ
 int Reel::getStatus()
 {
     if (this->isSpining == false)
@@ -39,8 +34,8 @@ int Reel::getStatus()
     else
         return -1;
 }
-// конструктор стоит столбец из 7 символов с шагом в 100 ед.
-Reel::Reel( float speed, sf::Vector2f basePosition = { 0.0,0.0 },bool standart =true)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 7 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ 100 пїЅпїЅ.
+Reel::Reel( const float& speed,const  sf::Vector2f & basePosition = { 0.0,0.0 },const bool &standart =true)
 {
     this->isSpining = false;
     this->acceleration = 1;
@@ -55,7 +50,7 @@ Reel::Reel( float speed, sf::Vector2f basePosition = { 0.0,0.0 },bool standart =
         this->reelSymbols.push_back(newSymb);
     }
 }
-// конструктор копирования
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Reel::Reel(const Reel& other)
 {
     this->reelSymbols = std::list<Symbol*>(other.reelSymbols);
@@ -65,18 +60,18 @@ Reel::Reel(const Reel& other)
     this->speed = other.speed;
     this->isSpining = other.isSpining;
 }
-// Метод для кнопки stop. Зануляет время разгона, благодаря чему столбец начинает плавно останавливаться.
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ stop. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 void Reel::stop()
 {
     this->timeToSpin.first = 0;
 
 }
-// Возвращает матрицу с символами, которые установлены на линии
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 std::array<int, 5> Reel::getSymbolsNew() const
 {
     std::array<int, 5> result;
     auto it = this->reelSymbols.begin();
-    // первый элемент не учитывается, потому что скрыт, поэтому сдвигаем иттератор
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     it++;
     for (size_t i = 0; i < 5; i++)
     {
@@ -85,15 +80,15 @@ std::array<int, 5> Reel::getSymbolsNew() const
     }
     return result;
 }
-// Запуск столбца. Время вращения делится поплам - половига - ускорение, половина - замедление
-void Reel::spin(float timeToSpin)
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+void Reel::spin(const float& timeToSpin)
 {
     this->isSpining = true;
     this->timeToSpin.first = timeToSpin/2;
     this->timeToSpin.second = timeToSpin/2;
     this->speed = 100;
 }
-// Деструктор. Хранятся указатели вместо объектов, так как так меньше кодировать
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Reel::~Reel()
 {
     for (auto& symbol : this->reelSymbols)
@@ -101,12 +96,12 @@ Reel::~Reel()
         delete symbol;
     }
 }
-// Процедура обновления положения символов. Нельзя внести в draw потомучто он константный
-// Движение равнноускоренное S = v_0*t + a*t^2/2 - at*t -at^2/2
-bool Reel::updateNew(float time)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ draw пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ S = v_0*t + a*t^2/2 - at*t -at^2/2
+bool Reel::updateNew(const float& time)
 {
     Symbol* newObject = nullptr;
-    // Часть для ускорения
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if (this->timeToSpin.first > 0)
     {
         
@@ -138,7 +133,7 @@ bool Reel::updateNew(float time)
         
     }
     auto yPos = this->reelSymbols.back()->getPosition().y + 50;
-    // Часть для замедления
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if (this->timeToSpin.second > 0 || (int)yPos != 700)
     {
         if (this->acceleration > 1)
@@ -172,7 +167,7 @@ bool Reel::updateNew(float time)
 }
 
 
-// отрисовка. Риуются все элементы, чьи указатели хранятся в экземпляре класса
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 void Reel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 

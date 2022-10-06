@@ -1,13 +1,13 @@
 #include "Button.h"
-// Переопределение унаследованного метода для рисования
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void Button::draw(sf::RenderTarget& t, sf::RenderStates s) const
 {
 
 	t.draw(this->buttonSprite, s);
 	t.draw(this->textTitle, s);
 }
-// Конструктор, выставляются совйства кнопки: размер, позиция, якорь
-Button::Button(const sf::Vector2f position, const std::string buttonText)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ
+Button::Button(const sf::Vector2f& position, const std::string& buttonText)
 {
 	
 	this->unHoverTexture.loadFromFile("assets/button.png");
@@ -33,8 +33,8 @@ Button::Button(const sf::Vector2f position, const std::string buttonText)
 	
 	
 }
-// Проверка для свойства :hovered. Если наведена мвшка, меняется текстурка
-void Button::checkMouse(sf::Vector2i mousePosition)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ :hovered. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+void Button::checkMouse(const sf::Vector2i& mousePosition)
 {
 	auto buttonPosition = this->buttonSprite.getPosition();
 	auto l = this->buttonSprite.getGlobalBounds().left;
@@ -68,8 +68,8 @@ void Button::checkMouse(sf::Vector2i mousePosition)
 		}
 	}
 }
-// Проверка на нажате tre - нажата, иначе false
-bool Button::checkMousePressed(sf::Vector2i mousePosition)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ tre - пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ false
+bool Button::checkMousePressed(const sf::Vector2i& mousePosition) const
 {
 	auto buttonPosition = this->buttonSprite.getPosition();
 	auto width_2 = this->buttonSprite.getGlobalBounds().width / 2;

@@ -1,8 +1,8 @@
 #pragma once
 #include "Path.h"
-#include <iostream>
-// реализация интерфейса для "зиг-заговых" путей:
-// - ф - k -
+
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ "пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅ:
+// - пїЅ - k -
 // a b c d f
 // a d f g h
 // l s h l p
@@ -12,6 +12,6 @@ class ZigZagLinePath :
     public Path
 {
 public:
-    virtual std::vector<std::pair<sf::VertexArray, int>> checkPath(std::array<std::array<int, 5>, 5>) ;
+    virtual std::vector<std::pair<sf::VertexArray, int>> checkPath(const std::array<std::array<int, 5>, 5> &) const ;
 };
 
