@@ -1,34 +1,29 @@
 #include "Reel.h"
 
-
-// ��������� ��������� �����, ���������� ����� ������ ��� ������ � ����������� � ��������� ��������.
-Symbol* Reel::getNewSymbol(const sf::Vector2f & basePosition)
+auto getRandomGenerator() -> std::mt19937&
 {
-    std::vector<std::string > pngs = { "flag.png","insingnia.png","sla.png","imp.png" };
-    int fileIdx = rand() % 100;
-    if (fileIdx > 90)
-    {
-        fileIdx = 3;
-    }
-    else if (fileIdx <= 90 && fileIdx > 70)
-    {
-        fileIdx = 2;
-    }
-    else if (fileIdx > 40)
-    {
-        fileIdx = 1;
-    }
-    else
-    {
-        fileIdx = 0;
-
-    }
-
-    std::string fileName = "assets/" + pngs.at(fileIdx);
-    Symbol * result = new Symbol(fileName,basePosition,fileIdx);
-
+    static auto generator = std::mt19937{ std::random_device{}() };
+    return generator;
+}
+ 
+Symbol*  Reel::getNewSymbol(const  sf::Vector2f& basePosition)
+{
+    static constexpr auto pngs = std::array{
+        std::string_view{ "flag.png" },
+        std::string_view{ "insingnia.png" },
+        std::string_view{ "sla.png" },
+        std::string_view{ "imp.png" }
+    };
+    static auto distribution = std::discrete_distribution<>({40, 30, 20, 10}); // коэффициенты могут быть не те
+ 
+    const auto fileIndex = distribution(getRandomGenerator());
+    const auto fileName = "assets/" + std::string(pngs.at(fileIndex));
+    Symbol * result = new Symbol(fileName,basePosition,fileIndex);
     return result;
 }
+ 
+// ��������� ��������� �����, ���������� ����� ������ ��� ������ � ����������� � ��������� ��������.
+
 
 
 // ��������� ������� - ��������� ��� ���

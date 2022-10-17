@@ -1,9 +1,10 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include <iostream>
+#include<random>
 #include <array>
 #include "Symbol.h"
 #include <list>
+#include <iomanip>
 // ����� ����������� ������� ��������.
 // ������ ������� �������� 7 ��������. 
 // ������ � ������� �� ����� ������. ����� ��� ��������� ��������.
